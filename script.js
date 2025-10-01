@@ -3,18 +3,27 @@ getSumBtn.append("Get Total Price");
 document.body.appendChild(getSumBtn);
 
 const getSum = () => {
-//Add your code here
-	let prices = document.querySelectorAll('.price')
-	let total = 0;
-	prices.forEach(cell => {
-		total += parseFloat(cell.textContent.trim());
-	})
-	let table = document.querySelector("table"); // assumes you have only one table
-  let row = document.createElement("tr");
-  let cell = document.createElement("td");
+  let prices = document.querySelectorAll(".price");
+  let total = 0;
 
-  // Span across all columns
+  prices.forEach(cell => {
+    total += parseFloat(cell.textContent.trim());
+  });
+
+  let table = document.querySelector("table"); // ✅ define table
+
+  // remove old total row if it exists (so it doesn’t duplicate)
+  let existingRow = document.getElementById("total-row");
+  if (existingRow) existingRow.remove();
+
+  let row = document.createElement("tr");
+  row.setAttribute("id", "total-row");
+
+  let cell = document.createElement("td");
   cell.setAttribute("colspan", "2");
+
+  // ✅ add id="ans" for Cypress test
+  cell.setAttribute("id", "ans"); 
   cell.textContent = "Total Price = " + total;
 
   row.appendChild(cell);
@@ -22,4 +31,3 @@ const getSum = () => {
 };
 
 getSumBtn.addEventListener("click", getSum);
-
